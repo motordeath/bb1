@@ -5,68 +5,63 @@ class User:
     @staticmethod
     def create_or_update(uid, data):
         db = get_db()
+
         user_data = {
-            "uid": uid,
-            "name": data.get("name"),
-            "email": data.get("email"),
-            "avatar": data.get("avatar"),
+            "firebase_uid": uid,
+            "name": data.get("name", ""),
+            "email": data.get("email", ""),
+            "profile_pic": data.get("profile_pic", ""),
             "bio": data.get("bio", ""),
             "skills": data.get("skills", []),
-            "social_links": data.get("social_links", {
+            "socials": data.get("socials", {
                 "github": "",
                 "linkedin": "",
-                "website": "",
-                "resume_url": ""
+                "instagram": ""
             }),
-            "updated_at": datetime.utcnow()
+            "academic_details": data.get("academic_details", {}),
+            "updated_at": datetime.utcnow(),
         }
-        # If new, add created_at
+
         db.users.update_one(
-            {"uid": uid},
+            {"firebase_uid": uid},
             {"$set": user_data, "$setOnInsert": {"created_at": datetime.utcnow()}},
             upsert=True
         )
-        return db.users.find_one({"uid": uid}, {"_id": 0})
+
+        return db.users.find_one({"firebase_uid": uid}, {"_id": 0})
 
     @staticmethod
     def get_by_uid(uid):
         db = get_db()
-        return db.users.find_one({"uid": uid}, {"_id": 0})
-
-    @staticmethod
-    def create(uid, email, display_name, photo_url):
-        db = get_db()
-        user_data = {
-            "_id": uid,
-            "email": email,
-            "display_name": display_name,
-            "photo_url": photo_url,
-            "skills": [],
-            "bio": "",
-            "created_at": datetime.utcnow()
-        }
-        db.users.update_one({"_id": uid}, {"$set": user_data}, upsert=True)
-        return user_data
-
-    @staticmethod
-    def get(uid):
-        db = get_db()
-        return db.users.find_one({"_id": uid})
+        return db.users.find_one({"firebase_uid": uid}, {"_id": 0})
 
     @staticmethod
     def get_similar(uid, limit=3):
         db = get_db()
-        # Mock: return other users
-        cursor = db.users.find({"_id": {"$ne": uid}}).limit(limit)
+
+        base = db.users.find_one({"firebase_uid": uid})
+        if not base:
+            return []
+
+        skills = base.get("skills", [])
+
+        if not skills:
+            cursor = db.users.find({"firebase_uid": {"$ne": uid}}).limit(limit)
+        else:
+            cursor = db.users.find({
+                "firebase_uid": {"$ne": uid},
+                "skills": {"$in": skills}
+            }).limit(limit)
+
         users = []
         for doc in cursor:
-            if "_id" in doc:
-                doc["_id"] = str(doc["_id"])
+            doc["_id"] = str(doc["_id"])
             if "created_at" in doc:
                 doc["created_at"] = doc["created_at"].isoformat()
             if "updated_at" in doc:
                 doc["updated_at"] = doc["updated_at"].isoformat()
             users.append(doc)
+
         return users
 
 class Project:
