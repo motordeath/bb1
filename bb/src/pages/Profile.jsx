@@ -53,7 +53,7 @@ const Profile = () => {
     const handleUpdateProfile = async (updatedData) => {
         try {
             const headers = { Authorization: `Bearer ${token}` };
-            const res = await axios.put(\`\${API_BASE_URL}/api/auth/me', updatedData, { headers });
+                  const res = await axios.put(`${API_BASE_URL}/api/auth/me`, updatedData, { headers });
             setUserProfile(res.data);
         } catch (error) {
             console.error("Error updating profile", error);
