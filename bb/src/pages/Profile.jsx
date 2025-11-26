@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import API_BASE_URL from '../config/api';
 import Layout from '../components/Layout';
 import ProfileHeaderCard from '../components/ProfileHeaderCard';
 import SkillsSection from '../components/SkillsSection';
@@ -29,7 +30,7 @@ const Profile = () => {
             const headers = { Authorization: `Bearer ${token}` };
 
             const [userRes, myProjRes, joinedProjRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/auth/me', { headers }),
+                axios.get(\`\${API_BASE_URL}/api/auth/me', { headers }),
                 axios.get(`http://localhost:5000/api/projects/active/${currentUser.uid}`, { headers }),
                 axios.get(`http://localhost:5000/api/projects/member/${currentUser.uid}`, { headers })
             ]);
@@ -52,7 +53,7 @@ const Profile = () => {
     const handleUpdateProfile = async (updatedData) => {
         try {
             const headers = { Authorization: `Bearer ${token}` };
-            const res = await axios.put('http://localhost:5000/api/auth/me', updatedData, { headers });
+            const res = await axios.put(\`\${API_BASE_URL}/api/auth/me', updatedData, { headers });
             setUserProfile(res.data);
         } catch (error) {
             console.error("Error updating profile", error);

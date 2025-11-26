@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_BASE_URL from '../config/api';
 import FloatingCard from './FloatingCard';
 import OutlineButton from './OutlineButton';
 import { FaTimes } from 'react-icons/fa';
@@ -35,7 +36,7 @@ const CreateProjectModal = ({ onClose, onProjectCreated }) => {
                 required_roles: form.required_roles.split(',').map(s => s.trim()).filter(Boolean)
             };
 
-            await axios.post('http://localhost:5000/api/projects/create', payload, {
+            await axios.post(\`\${API_BASE_URL}/api/projects/create', payload, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

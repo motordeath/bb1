@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import API_BASE_URL from '../config/api';
 import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import FloatingCard from '../components/FloatingCard';
@@ -28,7 +29,7 @@ const ProjectDetails = () => {
 
     const handleJoin = async () => {
         try {
-            await axios.post('http://localhost:5000/api/join', {
+            await axios.post(\`\${API_BASE_URL}/api/join', {
                 project_id: id,
                 message: "I'd like to join!"
             }, {

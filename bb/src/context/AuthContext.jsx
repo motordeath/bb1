@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import API_BASE_URL from '../config/api';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 import axios from 'axios';
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
                 // Sync user with backend
                 try {
-                    await axios.post('http://localhost:5000/api/auth/sync', {
+                    await axios.post(\`\${API_BASE_URL}/api/auth/sync', {
                         email: user.email,
                         name: user.displayName,
                         avatar: user.photoURL
