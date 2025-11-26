@@ -30,9 +30,9 @@ const Profile = () => {
             const headers = { Authorization: `Bearer ${token}` };
 
             const [userRes, myProjRes, joinedProjRes] = await Promise.all([
-                axios.get(\`\${API_BASE_URL}/api/auth/me', { headers }),
-                axios.get(`http://localhost:5000/api/projects/active/${currentUser.uid}`, { headers }),
-                axios.get(`http://localhost:5000/api/projects/member/${currentUser.uid}`, { headers })
+          axios.get(`${API_BASE_URL}/api/auth/me`, { headers }),
+          axios.get(`${API_BASE_URL}/api/projects/active/${currentUser.uid}`, { headers }),
+                          axios.get(`${API_BASE_URL}/api/projects/member/${currentUser.uid}`, { headers })
             ]);
 
             setUserProfile(userRes.data);
