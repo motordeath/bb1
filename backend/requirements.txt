@@ -4,4 +4,3 @@ firebase-admin
 pymongo
 python-dotenv
 gunicorn
-gunicorn

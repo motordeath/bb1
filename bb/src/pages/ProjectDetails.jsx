@@ -16,7 +16,7 @@ const ProjectDetails = () => {
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/projects/${id}`);
+                const res = await axios.get(`${API_BASE_URL}/api/projects/${id}`);
                 setProject(res.data);
             } catch (error) {
                 console.error("Error fetching project", error);
@@ -29,7 +29,7 @@ const ProjectDetails = () => {
 
     const handleJoin = async () => {
         try {
-            await axios.post(\`\${API_BASE_URL}/api/join', {
+            await axios.post(`${API_BASE_URL}/api/join`, {
                 project_id: id,
                 message: "I'd like to join!"
             }, {

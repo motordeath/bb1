@@ -51,14 +51,14 @@ const Home = () => {
         teammatesRes,
         catsRes
       ] = await Promise.all([
-        axios.get(`http://localhost:5000/api/projects/feed?filter=${activeFilter}`),
-        currentUser ? axios.get(`http://localhost:5000/api/projects/active/${currentUser.uid}`) : Promise.resolve({ data: [] }),
-        currentUser ? axios.get(`http://localhost:5000/api/projects/saved/${currentUser.uid}`, { headers }) : Promise.resolve({ data: [] }),
-                axios.get(`${API_BASE_URL}/api/projects/trending'),
-        currentUser ? axios.get(`http://localhost:5000/api/projects/recommended/${currentUser.uid}`) : Promise.resolve({ data: [] }),
-        currentUser ? axios.get(`http://localhost:5000/api/activity/${currentUser.uid}`) : Promise.resolve({ data: [] }),
-        currentUser ? axios.get(`http://localhost:5000/api/users/similar/${currentUser.uid}`) : Promise.resolve({ data: [] }),
-                axios.get(`${API_BASE_URL}/api/projects/categories')
+        axios.get(`${API_BASE_URL}/api/projects/feed?filter=${activeFilter}`),
+        currentUser ? axios.get(`${API_BASE_URL}/api/projects/active/${currentUser.uid}`) : Promise.resolve({ data: [] }),
+        currentUser ? axios.get(`${API_BASE_URL}/api/projects/saved/${currentUser.uid}`, { headers }) : Promise.resolve({ data: [] }),
+        axios.get(`${API_BASE_URL}/api/projects/trending`),
+        currentUser ? axios.get(`${API_BASE_URL}/api/projects/recommended/${currentUser.uid}`) : Promise.resolve({ data: [] }),
+        currentUser ? axios.get(`${API_BASE_URL}/api/activity/${currentUser.uid}`) : Promise.resolve({ data: [] }),
+        currentUser ? axios.get(`${API_BASE_URL}/api/users/similar/${currentUser.uid}`) : Promise.resolve({ data: [] }),
+        axios.get(`${API_BASE_URL}/api/projects/categories`)
       ]);
 
       console.log("DEBUG: Active Projects Response:", activeRes.data);
