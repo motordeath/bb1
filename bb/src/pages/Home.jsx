@@ -57,7 +57,8 @@ const Home = () => {
         axios.get(`${API_BASE_URL}/api/projects/trending`),
         currentUser ? axios.get(`${API_BASE_URL}/api/projects/recommended/${currentUser.uid}`) : Promise.resolve({ data: [] }),
         currentUser ? axios.get(`${API_BASE_URL}/api/activity/${currentUser.uid}`) : Promise.resolve({ data: [] }),
-        currentUser ? axios.get(`${API_BASE_URL}/api/users/similar/${currentUser.uid}`) : Promise.resolve({ data: [] }),
+        // Safely handle similar users - will return [] if endpoint fails
+        currentUser ? axios.get(`${API_BASE_URL}/api/users/similar/${currentUser.uid}`).catch(() => ({ data: [] })) : Promise.resolve({ data: [] }),
         axios.get(`${API_BASE_URL}/api/projects/categories`)
       ]);
 

@@ -1,0 +1,586 @@
+/* SMOOTH SCROLLING */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  transition: all 0.3s ease;
+}
+
+
+/* PARALLAX FLOATING EFFECT */
+body {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero, .features-section, .projects-section, section {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* VOXEL THEME CSS VARIABLES */
+
+.theme-voxel {, .theme-voxel
+    --bg-color: #E5E5E5;
+    --bg-pattern: repeating-linear-gradient(30deg, #D0D0D0 0px, #D0D0D0 1px, transparent 1px, transparent 20px),
+                  repeating-linear-gradient(-30deg, #D0D0D0 0px, #D0D0D0 1px, transparent 1px, transparent 20px);
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-primary: #FF5722;
+    --font-headings: 'Righteous', cursive;
+    --font-body: 'Space Grotesk', sans-serif;
+    --heading-weight: 400;
+    --card-bg: #FFFFFF;
+    --card-border: 3px solid #333333;
+    --card-radius: 4px;
+    --card-shadow: 8px 8px 0 #999999, 8px 8px 0 3px #333333;
+    --button-bg: #FF5722;
+    --button-text: #FFFFFF;
+    --button-radius: 4px;
+    --button-border: 3px solid #333333;
+    --button-shadow: 4px 4px 0 #BF360C, 4px 4px 0 3px #333333;
+    --button-transform: translateY(-2px);
+}
+
+/* GLOBAL RESET & BASE STYLES */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body , .theme-voxel {
+    background: var(--bg-color);
+    background-image: var(--bg-pattern);
+      background-attachment: fixed;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+#root {
+    min-height: 100vh;
+}
+
+/* TYPOGRAPHY */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headings);
+    font-weight: var(--heading-weight);
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.75rem;
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* NAVBAR VOXEL STYLE */
+
+.navbar {
+    background: var(--card-bg);
+    border-bottom: var(--card-border);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 0 var(--text-primary);
+}
+
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-family: var(--font-headings);
+    font-size: 1.75rem;
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: var(--heading-weight);
+    text-transform: uppercase;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.navbar-links a {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: var(--accent-primary);
+}
+
+/* HERO SECTION VOXEL STYLE */
+
+.hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero h1 {
+    text-shadow: 4px 4px 0 var(--accent-primary);
+    margin-bottom: 1.5rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+        color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+/* VOXEL BUTTON STYLES */
+
+.btn-voxel {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: var(--button-border);
+    border-radius: var(--button-radius);
+    box-shadow: var(--button-shadow);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cta-button {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background: #FF5022;
+  color: white;
+  border: var(--button-border);
+  border-radius: var(--button-radius);
+  box-shadow: var(--button-shadow);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 80, 34, 0.3);
+}
+
+.btn-voxel:hover {
+    transform: var(--button-transform);
+    box-shadow: 6px 6px 0 #BF360C, 6px 6px 0 3px #333333;
+}
+
+.btn-voxel:active {
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0 #BF360C, 2px 2px 0 3px #333333;
+}
+
+.btn-secondary {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    box-shadow: 4px 4px 0 #999999, 4px 4px 0 3px #333333;
+}
+
+.btn-secondary:hover {
+    box-shadow: 6px 6px 0 #999999, 6px 6px 0 3px #333333;
+}
+
+.btn-secondary:active {
+    box-shadow: 2px 2px 0 #999999, 2px 2px 0 3px #333333;
+}
+
+/* VOXEL CARD STYLES */
+
+.card-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.voxel-card {
+    background: var(--card-bg);
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.voxel-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 12px 12px 0 #999999, 12px 12px 0 3px #333333;
+}
+
+.voxel-card h3 {
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.voxel-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* SECTION CONTAINER */
+
+.section {
+    padding: 4rem 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    text-shadow: 3px 3px 0 var(--accent-primary);
+}
+
+/* CTA SECTION */
+
+.cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--card-bg);
+    border-top: var(--card-border);
+    border-bottom: var(--card-border);
+    box-shadow: 0 8px 0 #999999;
+}
+
+.cta h2 {
+    margin-bottom: 2rem;
+}
+
+/* FORM STYLES (VOXEL) */
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+.form-input {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 1rem;
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    background: var(--card-bg);
+    box-shadow: 4px 4px 0 #999999, 4px 4px 0 3px #333333;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0 #999999, 6px 6px 0 3px #333333;
+}
+
+
+/* PROJECTS SECTION */
+
+.projects-section {
+  padding: 80px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.search-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.search-input,
+.select-filter {
+  flex: 1;
+  min-width: 200px;
+  padding: 16px 20px;
+  background: white;
+  border: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-primary);
+  box-shadow: 8px 8px 0 var(--shadow-color);
+  transition: all 0.2s ease;
+}
+
+.search-input:focus,
+.select-filter:focus {
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 10px 10px 0 var(--shadow-color);
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.project-card {
+  background: white;
+  padding: 30px;
+  border: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 8px 8px 0 var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+/* Domains Grid */
+.domains-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.domain-card {
+  background: ⬜white;
+  padding: 30px 20px;
+  border: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 6px 6px 0 var(--shadow-color);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.domain-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0 var(--shadow-color);
+}
+
+.domain-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.domain-card h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: var(--heading-weight);
+}
+
+.icon-wrapper {
+  background: linear-gradient(135deg, #f0f0f0, #e5e5e5);
+  border-radius: 24px;
+  padding: 24px;
+  margin: 0 auto 20px;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot-separator {
+  width: 6px;
+  height: 6px;
+  background: #FF5733;
+  border-radius: 50%;
+  margin: 12px auto;
+}
+
+.domain-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0;
+}
+
+.project-card:hover {
+  transform: translateY(-4px) translateX(-4px);
+  box-shadow: 12px 12px 0 var(--shadow-color);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.project-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  text-shadow: 2px 2px 0 rgba(255, 113, 57, 0.2);
+}
+
+.project-tag {
+  padding: 6px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.project-tag-open {
+  background: #4ade80;
+  color: #166534;
+}
+
+.project-tag-progress {
+  background: #60a5fa;
+  color: #1e3a8a;
+}
+
+.project-domain {
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.project-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* FOOTER */
+
+.footer {
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 3px solid var(--border-color);
+  margin-top: 80px;
+}
+
+.footer p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+    .navbar-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .navbar-links {
+        gap: 1rem;
+    }
+    
+    .hero {
+        min-height: 60vh;
+        padding: 2rem 1rem;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+    }
+    
+    .section {
+        padding: 2rem 1rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero h1 {
+        text-shadow: 3px 3px 0 var(--accent-primary);
+    }
+    
+    .btn-voxel {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .voxel-card {
+        box-shadow: 6px 6px 0 #999999, 6px 6px 0 3px #333333;
+    }
+    
+    .voxel-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 8px 8px 0 #999999, 8px 8px 0 3px #333333;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 1rem;
+    }
+    
+    .navbar-logo {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-links a {
+        font-size: 0.9rem;
+    }
+}
