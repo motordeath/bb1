@@ -19,25 +19,24 @@ export const AuthProvider = ({ children }) => {
                 const idToken = await user.getIdToken();
                 setToken(idToken);
                 setCurrentUser(user);
+                setLoading(false); // Set loading false immediately
 
-                // Sync user with backend
-                try {
-                              await axios.post(`${API_BASE_URL}/api/auth/sync`, {
-                        email: user.email,
-                        name: user.displayName,
-                        avatar: user.photoURL
-                    }, {
-                        headers: { Authorization: `Bearer ${idToken}` }
-                    });
-                } catch (error) {
-                    console.error("Failed to sync user", error);
-                }
+                // Sync user with backend (NON-BLOCKING - runs in background)
+                axios.post(`${API_BASE_URL}/api/auth/sync`, {
+                    email: user.email,
+                    name: user.displayName,
+                    avatar: user.photoURL
+                }, {
+                    headers: { Authorization: `Bearer ${idToken}` }
+                }).catch((error) => {
+                    console.error("Failed to sync user (non-critical):", error);
+                });
 
             } else {
                 setCurrentUser(null);
                 setToken(null);
+                setLoading(false);
             }
-            setLoading(false);
         });
 
         return unsubscribe;
@@ -56,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 };

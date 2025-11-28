@@ -30,9 +30,9 @@ const Profile = () => {
             const headers = { Authorization: `Bearer ${token}` };
 
             const [userRes, myProjRes, joinedProjRes] = await Promise.all([
-          axios.get(`${API_BASE_URL}/api/auth/me`, { headers }),
-          axios.get(`${API_BASE_URL}/api/projects/active/${currentUser.uid}`, { headers }),
-                          axios.get(`${API_BASE_URL}/api/projects/member/${currentUser.uid}`, { headers })
+                axios.get(`${API_BASE_URL}/api/auth/me`, { headers }),
+                axios.get(`${API_BASE_URL}/api/projects/active/${currentUser.uid}`, { headers }),
+                axios.get(`${API_BASE_URL}/api/projects/member/${currentUser.uid}`, { headers })
             ]);
 
             setUserProfile(userRes.data);
@@ -48,12 +48,13 @@ const Profile = () => {
 
     useEffect(() => {
         fetchData();
-    }, [currentUser, token]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Only fetch on mount
 
     const handleUpdateProfile = async (updatedData) => {
         try {
             const headers = { Authorization: `Bearer ${token}` };
-                  const res = await axios.put(`${API_BASE_URL}/api/auth/me`, updatedData, { headers });
+            const res = await axios.put(`${API_BASE_URL}/api/auth/me`, updatedData, { headers });
             setUserProfile(res.data);
         } catch (error) {
             console.error("Error updating profile", error);
@@ -73,8 +74,16 @@ const Profile = () => {
         await handleUpdateProfile({ skills: updatedSkills });
     };
 
-    if (loading) return <Layout><div>Loading profile...</div></Layout>;
-    if (!userProfile) return <Layout><div>Profile not found</div></Layout>;
+    if (loading) return (
+        <Layout>
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-center">
+                    <div className="animate-pulse text-xl font-bold">Loading your profile...</div>
+                </div>
+            </div>
+        </Layout>
+    );
+    if (!userProfile) return <Layout><div className="text-center py-10">Profile not found</div></Layout>;
 
     return (
         <Layout fullWidth>
