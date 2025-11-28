@@ -43,7 +43,7 @@ export default function AuthCard({ initialMode = "login" }) {
   async function syncWithBackend(user) {
     try {
       const token = await user.getIdToken();
-      await axios.post(`${API_BASE_URL}/api/auth/sync", {
+      await axios.post(`${API_BASE_URL}/api/auth/sync`, {
         uid: user.uid,
         email: user.email,
         name: user.displayName,

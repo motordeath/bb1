@@ -36,7 +36,7 @@ const CreateProjectModal = ({ onClose, onProjectCreated }) => {
                 required_roles: form.required_roles.split(',').map(s => s.trim()).filter(Boolean)
             };
 
-            await axios.post(\`\${API_BASE_URL}/api/projects/create', payload, {
+            await axios.post(`${API_BASE_URL}/api/projects/create`, payload, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
