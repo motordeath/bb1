@@ -115,7 +115,7 @@ const Profile = () => {
                         />
 
                         <AboutSection
-                            bio={userProfile.bio}
+                            bio={userProfile.about}
                             onEdit={() => setShowEditModal(true)}
                         />
                     </div>

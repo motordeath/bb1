@@ -16,8 +16,8 @@ const AboutSection = ({ bio, onEdit }) => {
                 </button>
             </div>
 
-            <p className="text-gray-700 leading-relaxed text-base">
-                {bio || "I'm a creative developer with 5+ years of experience in building scalable web applications. I love collaborating on open-source projects and learning new technologies. In my free time, I enjoy hiking and photography."}
+            <p className="text-gray-700 leading-relaxed text-base whitespace-pre-wrap">
+                {bio || "Tell people more about yourself, your interests, and what you're building..."}
             </p>
         </FloatingCard>
     );
